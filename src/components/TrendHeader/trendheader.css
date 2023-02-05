@@ -1,0 +1,11 @@
+.trend-header__trend__title{
+   text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.trend-header__trend__subtitle{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 400;
+}

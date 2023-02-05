@@ -1,0 +1,85 @@
+.trend-container {
+    margin: 0 1rem;
+    padding: 1rem 0;
+}
+
+.trend-container__content {
+    margin: 1.5 1rem;
+}
+
+.trend-container__content__card {
+    width: 16rem;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    border-radius: 0.75rem;
+    margin-top: 1rem;
+    transition: 300ms ease-in-out;
+}
+
+.trend-container__content__card:hover {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.trend-container__content__card img {
+    width: 100%;
+    height: 20rem;
+    object-fit: fill;
+    border-top-right-radius: 0.75rem;
+    border-top-left-radius: 0.75rem;
+}
+
+.trend-container__content__card .card-body {
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.trend-container__content__card .card-body .card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.trend-container__content__card .card-body .card-text {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.trend-container__content__card .card-body .card-text span {
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.75rem;
+    margin-top: 1rem;
+    max-height:1.5rem;
+
+}
+
+.trend-container__content__card .card-body .card-text p {
+
+    font-weight: 400;
+    border: 1px solid rgba(256, 256, 256, 0.4);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.75rem;
+    text-transform: uppercase;
+
+}
+
+.trend-container__content__card .card-body a {
+    text-decoration: none;
+    color: rgba(256, 256, 256, 0.7);
+    border: 1px solid rgba(256, 256, 256, 0.4);
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    transition: 300ms ease-out;
+}
+
+.trend-container__content__card .card-body a:hover {
+    background-color: #f1c40f;
+    color: #000;
+}
