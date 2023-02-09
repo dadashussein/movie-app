@@ -1,33 +1,36 @@
 .detail-container {
-    padding: 1rem ;
+    padding: 1rem;
     height: 100vh;
-   
+    color: #fff;
 }
 
-.detail-container a {
-    font-size: 4rem;
-    color: #fff;
-    margin-left: 1rem;
-    letter-spacing: 5px;
-    text-decoration: none;
-   
-    
-}
-.back{
+.back {
     backdrop-filter: blur(3px);
     background-color: rgba(0, 0, 0, 0.6);
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 0.5rem;
 
 }
 
+
+.detail-container a {
+    font-size: 4rem;
+    margin-left: 1rem;
+    letter-spacing: 5px;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+
+
+}
+
 .detail-container .tagline {
-   font-style: italic;
-    color: #fff;    
+    font-style: italic;
     font-weight: 200;
     font-size: 1.5rem;
-   margin-left: 1rem;
+    margin-left: 1rem;
 }
+
 .detail-container .card-title {
     display: flex;
     gap: .7rem;
@@ -35,7 +38,7 @@
     font-size: 1.125rem;
     color: rgb(211, 209, 209);
     margin: .5rem 0 0 1rem;
-   
+
 }
 
 .detail-container .card-body__gene {
@@ -49,7 +52,6 @@
     padding: 0.25rem 0.5rem;
     border-radius: 0.75rem;
     text-transform: uppercase;
-    color: #fff;
     gap: 2rem;
 }
 
@@ -59,14 +61,14 @@
     padding: 1rem;
     border-radius: 0.5rem;
 }
+
 .detail-container .card-body .card-body__text {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    color: #fff;
     padding: 0.25rem 0.5rem;
     border-radius: 0.75rem;
-    
+
 }
 
 .detail-container .card-body img {
@@ -78,15 +80,115 @@
 
 
 .detail-container .card-body .overview {
-    color: #fff;
     font-size: 1.125rem;
 }
 
 .detail-container .card-body .imdb,
-.detail-container .card-body .budget{
+.detail-container .card-body .budget {
     display: flex;
     gap: 1rem;
-    color: #fff;
 }
 
+.addition {
+    display: flex;
+    flex-direction: column;
+}
 
+/*=============== BREAKPOINTS ===============*/
+/* For medium devices */
+@media screen and (max-width: 768px) {
+    .detail-container {
+        padding: 1rem;
+        height: 115vh;
+    }
+
+    .detail-container .card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* For small devices */
+@media screen and (max-width: 522px) {
+    .detail-container {
+        padding: 1rem;
+        height: 100vh;
+
+    }
+
+    .back {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .detail-container a {
+        font-size: 2rem;
+
+    }
+
+    .detail-container .tagline {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .detail-container .card-title {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        font-size: 1rem;
+    }
+
+    .detail-container .card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .detail-container .card-body .card-body__text {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .detail-container .card-body img {
+        max-width: min-content;
+        height: 20rem;
+    }
+
+    .detail-container .card-body__gene {
+        margin-top: 0;
+        display: flex;
+        justify-content: center;
+        gap: 0.3rem;
+    }
+
+    .detail-container .card-body .card-body__gene p {
+        font-size: 0.75rem;
+        border: 1px solid rgba(256, 256, 256, 0.4);
+        padding: 0.3rem 0.8rem;
+        border-radius: 0.75rem;
+    }
+
+    .detail-container .card-body .overview {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .detail-container .card-body .imdb,
+    .detail-container .card-body .budget {
+        display: flex;
+        gap: .5rem;
+    }
+
+    .addition {
+        font-size: .8rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 3rem;
+    }
+}

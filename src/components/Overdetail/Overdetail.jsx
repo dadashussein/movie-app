@@ -52,7 +52,9 @@ const Overdetail = () => {
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
+    padding: "0.5rem",
   };
+
 
   const releseDate = () => {
     return release_date?.slice(0, 4);
@@ -65,7 +67,6 @@ const Overdetail = () => {
           href={homepage}
           rel="noreferrer"
           target="_blank"
-          className="text-white text-6xl"
         >
           {title}
         </a>
@@ -89,6 +90,7 @@ const Overdetail = () => {
 
             <div className="card-body__text">
               <span className="overview">{overview}</span>
+              <div className="addition">
               <div className="imdb">
                 <p className="text-white">IMDB :</p>
                 <p className="text-white">{vote_average}/10</p>
@@ -96,6 +98,7 @@ const Overdetail = () => {
               <div className=" budget">
                 <p className="text-white">Budget :</p>
                 <p className="text-white">{budgetInMillion()}M</p>
+              </div>
               </div>
              
             </div>
