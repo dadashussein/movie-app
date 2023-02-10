@@ -96,6 +96,7 @@ body {
   background: rgb(92, 49, 173);
   background: linear-gradient(356deg, rgba(92, 49, 173, 1) 0%, rgba(252, 70, 70, 1) 100%);
   background-attachment: fixed;
+
 }
 
 .container{
@@ -109,3 +110,13 @@ body {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+@keyframes open {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+

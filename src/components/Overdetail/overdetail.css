@@ -99,7 +99,7 @@
 @media screen and (max-width: 768px) {
     .detail-container {
         padding: 1rem;
-        height: 115vh;
+        height: 128vh;
     }
 
     .detail-container .card-body {
@@ -113,7 +113,7 @@
 @media screen and (max-width: 522px) {
     .detail-container {
         padding: 1rem;
-        height: 100vh;
+        height: max-content;
 
     }
 
@@ -163,6 +163,7 @@
         margin-top: 0;
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
         gap: 0.3rem;
     }
 
@@ -174,7 +175,7 @@
     }
 
     .detail-container .card-body .overview {
-        font-size: 1rem;
+        font-size: 1.3rem;
         text-align: center;
     }
 
@@ -185,7 +186,7 @@
     }
 
     .addition {
-        font-size: .8rem;
+        font-size: 1rem;
         display: flex;
         flex-direction: row;
         justify-content: center;

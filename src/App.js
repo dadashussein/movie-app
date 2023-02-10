@@ -5,7 +5,6 @@ import Header from "./components/Header/Header";
 import SearchMovies from "./components/SearchMovies/SearchMovies";
 import TrendMovies from "./components/TrendMovies/TrendMovies";
 import TrendHeader from "./components/TrendHeader/TrendHeader";
-
 import Loading from "./components/Loading";
 import Overdetail from "./components/Overdetail/Overdetail";
 
@@ -15,11 +14,11 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
   const [trendMovies, setTrendMovies] = useState([]);
+  const [index, setIndex] = useState(0);
 
   const getMovies = async (API_URL) => {
     const res = await fetch(API_URL);
     const data = await res.json();
-
     setMovies(data.results);
   };
   const getTrendMovies = async () => {
@@ -37,7 +36,7 @@ function App() {
   useEffect(() => {
     setInterval(() => {
       getTrendMovies();
-    }, 1200);
+    }, 1000);
   }, []);
 
   useEffect(() => {
@@ -46,11 +45,28 @@ function App() {
     }
   }, [search]);
 
-  let myTrend = trendMovies.slice(0, 4);
+  let myTrend = trendMovies.slice(0, 10);
 
-  myTrend.sort((a, b) => {
-    return b.vote_average - a.vote_average;
-  });
+  // animation for the trend movies
+  const displayTrend = async () => {
+    if (index < myTrend.length) {
+      await new Promise((resolve) => {
+        setTimeout(resolve, 200);
+      });
+      setIndex(index + 1);
+    }
+  };
+  displayTrend();
+  // animation for the search movies
+  const displayMovies = async () => {
+    if (index < movies.length) {
+      await new Promise((resolve) => {
+        setTimeout(resolve, 300);
+      });
+      setIndex(index + 1);
+    }
+  };
+  displayMovies();
 
   return (
     <>
@@ -67,22 +83,26 @@ function App() {
               )}
 
               <div className="app-trendvideos">
-                {myTrend.map((movie) =>
-                  movie.poster_path && movie.length === 0 ? (
-                    <Loading />
-                  ) : search ? null : (
-                    <TrendMovies movie={movie} key={movie.id} />
-                  )
-                )}
+                {myTrend
+                  .slice(0, index)
+                  .map((movie) =>
+                    movie.poster_path && movie.length === 0 ? (
+                      <Loading />
+                    ) : search ? null : (
+                      <TrendMovies movie={movie} key={movie.id} />
+                    )
+                  )}
               </div>
 
               <div className="app-searchmovies">
-                {movies.map(
-                  (movie) =>
-                    movie.poster_path && (
-                      <SearchMovies movie={movie} key={movie.id} />
-                    )
-                )}
+                {movies
+                  .slice(0, index)
+                  .map(
+                    (movie) =>
+                      movie.poster_path && (
+                        <SearchMovies movie={movie} key={movie.id} />
+                      )
+                  )}
               </div>
             </div>
           }

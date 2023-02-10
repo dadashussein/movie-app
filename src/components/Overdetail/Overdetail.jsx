@@ -53,6 +53,7 @@ const Overdetail = () => {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     padding: "0.5rem",
+
   };
 
 
@@ -62,7 +63,7 @@ const Overdetail = () => {
 
   return (
     <div className="detail-container" style={backgroundStyle}>
-      <div className="back">
+      <div className="back" style={{ animation: "open 1s ease-in-out" }}>
         <a
           href={homepage}
           rel="noreferrer"

@@ -1,6 +1,6 @@
-import React from "react";
 import "./trendmovies.css";
 import { Link } from "react-router-dom";
+
 const TrendMovies = (props) => {
   const {
     id,
@@ -38,9 +38,9 @@ const TrendMovies = (props) => {
   };
   return (
     <>
-      <article className="trend-container">
-        <div className="trend-container__content">
-          <div className="trend-container__content__card">
+      <article className="trend-container" style={{ animation: "open 1s ease-in-out" }}>
+        <div className="trend-container__content"  >
+          <div className="trend-container__content__card" >
             <img id="img" src={IMG_PATH + poster_path} alt={title} />
             <div className="card-body">
               <h1 className="card-title">{filterTitle()}</h1>
