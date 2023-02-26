@@ -38,9 +38,12 @@ const TrendMovies = (props) => {
   };
   return (
     <>
-      <article className="trend-container" style={{ animation: "open 1s ease-in-out" }}>
-        <div className="trend-container__content"  >
-          <div className="trend-container__content__card" >
+      <article
+        className="trend-container"
+        style={{ animation: "open 1s ease-in-out" }}
+      >
+        <div className="trend-container__content">
+          <div className="trend-container__content__card">
             <img id="img" src={IMG_PATH + poster_path} alt={title} />
             <div className="card-body">
               <h1 className="card-title">{filterTitle()}</h1>
@@ -60,7 +63,9 @@ const TrendMovies = (props) => {
                 <p>{original_language}</p>
               </div>
 
-              <Link to={`/overdetail/${id}`}>Detail</Link>
+              <Link to={`/overdetail/${id}`}>{`${
+                props.language === "en-US" ? "More" : "Daha Fazla"
+              }`}</Link>
             </div>
           </div>
         </div>

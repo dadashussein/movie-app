@@ -2,9 +2,8 @@ import React from "react";
 import { useState } from "react";
 import "./header.css";
 
-const Header = ({ setSearch }) => {
+const Header = ({ setSearch, language }) => {
   const [query, setQuery] = useState("");
-
   const eventHandle = (e) => {
     setQuery(e.target.value);
   };
@@ -24,14 +23,14 @@ const Header = ({ setSearch }) => {
       <span className="icon" onClick={refreshPage}>
         You <span>Movie</span>
       </span>
-      <h1>Movie Search</h1>
+      <h1>{`${language === "en-US" ? "Movie search" : "Film arama"}`}</h1>
 
       <form onSubmit={handleSubmit}>
         <input
           onChange={eventHandle}
           value={query}
           type="text"
-          placeholder="Search"
+          placeholder={language === "en-US" ? "Search" : "Ara"}
           required
         />
       </form>

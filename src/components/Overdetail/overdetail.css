@@ -14,14 +14,11 @@
 
 
 .detail-container a {
-    font-size: 4rem;
+    font-size: 3rem;
     margin-left: 1rem;
-    letter-spacing: 5px;
     text-decoration: none;
     text-align: center;
-    color: #fff;
-
-
+    color: var(--title-color);
 }
 
 .detail-container .tagline {
@@ -83,16 +80,25 @@
     font-size: 1.125rem;
 }
 
-.detail-container .card-body .imdb,
-.detail-container .card-body .budget {
+.imdb {
     display: flex;
     gap: 1rem;
+    align-items: center;
 }
 
-.addition {
-    display: flex;
-    flex-direction: column;
-}
+/* circle area */
+
+  .circle-chart {
+    display: block;
+    max-width: 80%;
+    width: 50px;
+  }
+  .circle-chart-circle {
+    transition: stroke-dasharray 2s ease-out;
+  }
+ 
+
+
 
 /*=============== BREAKPOINTS ===============*/
 /* For medium devices */
@@ -185,11 +191,5 @@
         gap: .5rem;
     }
 
-    .addition {
-        font-size: 1rem;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 3rem;
-    }
+   
 }

@@ -9,13 +9,17 @@ import Loading from "./components/Loading";
 import Overdetail from "./components/Overdetail/Overdetail";
 
 function App() {
-  const SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}`;
-
+  // states
+  const [language, setLanguage] = useState("en-US");
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
   const [trendMovies, setTrendMovies] = useState([]);
   const [index, setIndex] = useState(0);
 
+  // api urls
+  const SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=${language}`;
+
+  // fetch functions
   const getMovies = async (API_URL) => {
     const res = await fetch(API_URL);
     const data = await res.json();
@@ -24,7 +28,7 @@ function App() {
   const getTrendMovies = async () => {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_API_KEY}`
+        `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_API_KEY}&language=${language}`
       );
       const data = await response.json();
       setTrendMovies(data.results);
@@ -34,18 +38,22 @@ function App() {
   };
 
   useEffect(() => {
-    setInterval(() => {
-      getTrendMovies();
-    }, 1000);
-  }, []);
+    getTrendMovies();
+  }, [language]);
 
   useEffect(() => {
     if (search) {
       getMovies(SEARCH_URL + "&query=" + search);
     }
-  }, [search]);
+  }, [search, language]);
+
+  // ...other code
 
   let myTrend = trendMovies.slice(0, 10);
+
+  const handleLanguageChange = (e) => {
+    setLanguage(e.target.value);
+  };
 
   // animation for the trend movies
   const displayTrend = async () => {
@@ -57,6 +65,7 @@ function App() {
     }
   };
   displayTrend();
+
   // animation for the search movies
   const displayMovies = async () => {
     if (index < movies.length) {
@@ -75,11 +84,18 @@ function App() {
           path="/"
           element={
             <div className="container">
-              <Header setSearch={setSearch} />
+              <form className="lang-switcher">
+                <select value={language} onChange={handleLanguageChange}>
+                  <option value="en-US">EN</option>
+                  <option value="tr-TR">TR</option>
+                </select>
+              </form>
+
+              <Header setSearch={setSearch} language={language} />
               {trendMovies.length === 0 ? (
                 <Loading />
               ) : search ? null : (
-                <TrendHeader />
+                <TrendHeader language={language} />
               )}
 
               <div className="app-trendvideos">
@@ -89,7 +105,11 @@ function App() {
                     movie.poster_path && movie.length === 0 ? (
                       <Loading />
                     ) : search ? null : (
-                      <TrendMovies movie={movie} key={movie.id} />
+                      <TrendMovies
+                        movie={movie}
+                        language={language}
+                        key={movie.id}
+                      />
                     )
                   )}
               </div>
@@ -107,7 +127,10 @@ function App() {
             </div>
           }
         />
-        <Route path="/overdetail/:id" element={<Overdetail />} />
+        <Route
+          path="/overdetail/:id"
+          element={<Overdetail language={language} />}
+        />
       </Routes>
     </>
   );
