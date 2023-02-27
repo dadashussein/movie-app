@@ -12,6 +12,7 @@ const TrendHeader = (props) => {
           ? "See what's trending"
           : "Trende olanları gör"
       }`}</div>
+      
     </div>
   );
 };

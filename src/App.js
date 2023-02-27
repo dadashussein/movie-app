@@ -5,7 +5,6 @@ import Header from "./components/Header/Header";
 import SearchMovies from "./components/SearchMovies/SearchMovies";
 import TrendMovies from "./components/TrendMovies/TrendMovies";
 import TrendHeader from "./components/TrendHeader/TrendHeader";
-import Loading from "./components/Loading";
 import Overdetail from "./components/Overdetail/Overdetail";
 
 function App() {
@@ -49,7 +48,7 @@ function App() {
 
   // ...other code
 
-  let myTrend = trendMovies.slice(0, 10);
+  let myTrend = trendMovies.slice(0, 8);
 
   const handleLanguageChange = (e) => {
     setLanguage(e.target.value);
@@ -92,19 +91,14 @@ function App() {
               </form>
 
               <Header setSearch={setSearch} language={language} />
-              {trendMovies.length === 0 ? (
-                <Loading />
-              ) : search ? null : (
-                <TrendHeader language={language} />
-              )}
+              {search ? null : <TrendHeader language={language} />}
 
               <div className="app-trendvideos">
                 {myTrend
                   .slice(0, index)
                   .map((movie) =>
-                    movie.poster_path && movie.length === 0 ? (
-                      <Loading />
-                    ) : search ? null : (
+                    movie.poster_path &&
+                    movie.length === 0 ? null : search ? null : (
                       <TrendMovies
                         movie={movie}
                         language={language}
