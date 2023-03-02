@@ -34,40 +34,40 @@ const Header = ({ setSearch, language }) => {
   };
 
   return (
-    <div className="header-container">
-      <span className="icon" onClick={refreshPage}>
-        You <span>Movie</span>
-      </span>
-      <h1>{`${language === "en-US" ? "Movie search" : "Film arama"}`}</h1>
-
-      <div className="header-wrapper">
-        <div
-          className={`${
-            searchTerm.length > 0 ? "search-input active" : "search-input"
-          }`}
-        >
-          <form onSubmit={handleSubmit}>
-            <input
-              onChange={eventHandle}
-              value={searchTerm}
-              type="text"
-              placeholder={language === "en-US" ? "Search" : "Ara"}
-              required
-            />
-          </form>
-          <div className="autocom-box">
-            {suggestions.map((suggestion) => (
-              <div className="suggestion-list" onClick={handleSubmit}>
-                <li>{suggestion}</li>
-              </div>
-            ))}
+    <header className="header">
+      <div className="header-container">
+        <span className="logo" onClick={refreshPage}>
+          You <span>Movie</span>
+        </span>
+        <div className="header-wrapper">
+          <div
+            className={`${
+              searchTerm.length > 0 ? "search-input active" : "search-input"
+            }`}
+          >
+            <form onSubmit={handleSubmit}>
+              <input
+                onChange={eventHandle}
+                value={searchTerm}
+                type="text"
+                placeholder={language === "en-US" ? "Search" : "Ara"}
+                required
+              />
+            </form>
+            <div className="autocom-box">
+              {suggestions.map((suggestion) => (
+                <div className="suggestion-list" onClick={handleSubmit}>
+                  <li>{suggestion}</li>
+                </div>
+              ))}
+            </div>
+            <button className="icon" onClick={handleSubmit} type="submit">
+              <i className="fa fa-search"></i>
+            </button>
           </div>
-          <button className="icon" onClick={handleSubmit} type="submit">
-            <i className="fa fa-search"></i>
-          </button>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

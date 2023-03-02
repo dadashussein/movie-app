@@ -12,7 +12,8 @@ const Overdetail = ({ language }) => {
   const [data, setData] = useState({});
   const [imdbRating, setImdbRating] = useState(0);
   const [circlePercentage, setCirclePercentage] = useState(0);
-
+  const [cast, setCast] = useState([]);
+  const [crew, setCrew] = useState([]);
   // Fetch the movie data from the API when the component mounts, using the id and language props
   useEffect(() => {
     fetch(
@@ -23,6 +24,19 @@ const Overdetail = ({ language }) => {
         // Update the state variables with the fetched data
         setData(data);
         setImdbRating(data.vote_average.toFixed(1));
+      });
+
+    fetch(
+      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setCast(data.cast);
+        setCrew(
+          data.crew.filter(
+            (member) => member.job === "Director" || member.job === "Writer"
+          )
+        );
       });
   }, [id]);
 
@@ -86,8 +100,8 @@ const Overdetail = ({ language }) => {
         <p className="tagline">{tagline}</p>
 
         <div className="card-title">
-          <span className=" uppercase">{releseDate()}</span>
-          <span className=" uppercase">{original_language}</span>
+          <span>{releseDate()}</span>
+          <span>{original_language}</span>
           <span>{runTime()}</span>
         </div>
 
@@ -105,7 +119,7 @@ const Overdetail = ({ language }) => {
               <span className="overview">{overview}</span>
 
               <div className="imdb">
-                <p className="text-white">IMDB :</p>
+                <p>IMDB :</p>
 
                 <div className="wrapper">
                   <svg
@@ -149,6 +163,20 @@ const Overdetail = ({ language }) => {
                     </text>
                   </svg>
                 </div>
+              </div>
+
+              <div className="card-body__crew">
+                <span>{language === "en-US" ? "Director" : "Yönetmen"}:</span>
+                
+                {crew.map((direct) => (
+                  <p key={direct.id}>{direct.name}</p>
+                ))}
+              </div>
+              <div className="card-body__cast">
+                <span>{language === "en-US" ? "Cast" : "Oyuncular"}:</span>
+                {cast.slice(0, 3).map((actor) => (
+                  <p key={actor.id}>{actor.name}</p>
+                ))}
               </div>
             </div>
           </div>
