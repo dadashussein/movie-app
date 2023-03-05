@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 :root {
   --title-color: #fff;
   --background-color: rgb(92, 49, 173);
@@ -17,7 +22,7 @@
   --font-normal: 400;
   --font-medium: 500;
   --font-semi-bold: 600;
-  --input-background: rgba(0, 0, 0, 0.01);
+  --input-background: rgba(0, 0, 0, 0.1);
 }
 
 @media(prefers-color-scheme: dark) {
@@ -98,5 +103,3 @@ body {
     top: 0.3rem;
   }
 }
-
-

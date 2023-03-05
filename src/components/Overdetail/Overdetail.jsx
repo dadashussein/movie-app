@@ -1,51 +1,29 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDetail, fetchCredit } from "../../stores/thunks/detailThunks";
 import "./overdetail.css";
 
 const Overdetail = ({ language }) => {
-  // Extract the id parameter from the URL using the useParams hook from React Router
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const { movie, imdbRating, cast, crew } = useSelector(
+    (state) => state.detail
+  );
+
+  const [circlePercentage, setCirclePercentage] = useState();
   const IMG_PATH = "https://image.tmdb.org/t/p/original";
 
-  // Define state variables for the movie data, IMDB rating, and circle percentage
-  const [data, setData] = useState({});
-  const [imdbRating, setImdbRating] = useState(0);
-  const [circlePercentage, setCirclePercentage] = useState(0);
-  const [cast, setCast] = useState([]);
-  const [crew, setCrew] = useState([]);
-  // Fetch the movie data from the API when the component mounts, using the id and language props
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=${language}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        // Update the state variables with the fetched data
-        setData(data);
-        setImdbRating(data.vote_average.toFixed(1));
-      });
+    dispatch(fetchDetail({ id: `${id}`, language: `${language}` }));
+    dispatch(fetchCredit({ id: `${id}` }));
+  }, [id, language, dispatch]);
 
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setCast(data.cast);
-        setCrew(
-          data.crew.filter(
-            (member) => member.job === "Director" || member.job === "Writer"
-          )
-        );
-      });
-  }, [id]);
-
-  // Calculate the circle percentage based on the IMDB rating
   useEffect(() => {
     setCirclePercentage((imdbRating / 10) * 100);
   }, [imdbRating]);
 
-  // Destructure the relevant data fields from the data object
   const {
     title,
     release_date,
@@ -57,7 +35,7 @@ const Overdetail = ({ language }) => {
     homepage,
     backdrop_path,
     tagline,
-  } = data;
+  } = movie;
 
   // Helper function to format the runtime as "Xh Ym"
   const runTime = () => {
@@ -167,7 +145,7 @@ const Overdetail = ({ language }) => {
 
               <div className="card-body__crew">
                 <span>{language === "en-US" ? "Director" : "Yönetmen"}:</span>
-                
+
                 {crew.map((direct) => (
                   <p key={direct.id}>{direct.name}</p>
                 ))}

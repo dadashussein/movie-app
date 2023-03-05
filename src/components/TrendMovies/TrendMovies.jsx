@@ -40,7 +40,7 @@ const TrendMovies = (props) => {
     <>
       <article
         className="trend-container"
-        style={{ animation: "open 1s ease-in-out" }}
+        style={{ animation: "open .7s ease-in-out" }}
       >
         <div className="trend-container__content">
           <div className="trend-container__content__card">
