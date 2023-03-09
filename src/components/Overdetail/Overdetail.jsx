@@ -71,8 +71,8 @@ const Overdetail = ({ language }) => {
 
   return (
     <div className="detail-container" style={backgroundStyle}>
-      <div className="back" style={{ animation: "open 1s ease-in-out" }}>
-        <a href={homepage} rel="noreferrer" target="_blank">
+      <div className="back">
+        <a href={homepage} className="title" rel="noreferrer" target="_blank">
           {title}
         </a>
         <p className="tagline">{tagline}</p>

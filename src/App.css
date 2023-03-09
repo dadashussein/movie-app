@@ -53,12 +53,26 @@ body {
 }
 
 @keyframes open {
-  from {
-    opacity: 0;
+  0% {
+   scale: 1;
   }
 
-  to {
-    opacity: 1;
+  50% {
+    scale: 1.1;
+  }
+
+  100%{
+    scale: 1;
+  }
+}
+
+/* loading animation */
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 

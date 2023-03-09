@@ -1,32 +1,30 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./header.css";
 
 const Header = ({ setSearch, language }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
-  const updateSuggestions = async (searchTerm) => {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${searchTerm}&api_key=${process.env.REACT_APP_API_KEY}&language=${language}`
-    );
-    const data = await response.json();
-    const results = data.results.map((result) => result.title);
-    setSuggestions(results);
-  };
-
   useEffect(() => {
-    updateSuggestions(searchTerm);
-  }, [searchTerm]);
+    const updateSuggestions = async () => {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/search/movie?query=${searchTerm}&api_key=${process.env.REACT_APP_API_KEY}&language=${language}`
+      );
+      const data = await response.json();
+      const results = data.results.map((result) => result.title);
+      setSuggestions(results);
+    };
+    updateSuggestions();
+  }, [searchTerm, language]);
 
-  const eventHandle = (e) => {
+  const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSearchTerm("");
     setSearch(searchTerm);
+    setSearchTerm("");
   };
 
   const refreshPage = () => {
@@ -40,28 +38,24 @@ const Header = ({ setSearch, language }) => {
           You <span>Movie</span>
         </span>
         <div className="header-wrapper">
-          <div
-            className={`${
-              searchTerm.length > 0 ? "search-input active" : "search-input"
-            }`}
-          >
+          <div className={`search-input ${searchTerm && "active"}`}>
             <form onSubmit={handleSubmit}>
               <input
-                onChange={eventHandle}
-                value={searchTerm}
                 type="text"
                 placeholder={language === "en-US" ? "Search" : "Ara"}
+                value={searchTerm}
+                onChange={handleChange}
                 required
               />
             </form>
             <div className="autocom-box">
               {suggestions.map((suggestion) => (
-                <div className="suggestion-list" onClick={handleSubmit}>
-                  <li>{suggestion}</li>
+                <div className="suggestion-list" key={suggestion}>
+                  <li onClick={() => setSearch(suggestion)}>{suggestion}</li>
                 </div>
               ))}
             </div>
-            <button className="icon" onClick={handleSubmit} type="submit">
+            <button className="icon" onClick={handleSubmit}>
               <i className="fa fa-search"></i>
             </button>
           </div>
@@ -70,5 +64,4 @@ const Header = ({ setSearch, language }) => {
     </header>
   );
 };
-
 export default Header;

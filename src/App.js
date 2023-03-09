@@ -11,6 +11,7 @@ import {
   fetchTrendMovies,
   fetchSearchMovies,
 } from "./stores/thunks/movieThunks";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,17 +22,13 @@ function App() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    dispatch(fetchTrendMovies({ language: `${language}` }));
+    dispatch(fetchTrendMovies({ language }));
   }, [dispatch, language]);
 
   useEffect(() => {
     if (search) {
-      dispatch(
-        fetchSearchMovies({ language: `${language}`, search: `${search}` })
-      )
-        .then((res) => {
-          setMovies(res.payload);
-        })
+      dispatch(fetchSearchMovies({ language, search }))
+        .then((res) => setMovies(res.payload))
         .catch((err) => console.log(err));
     }
   }, [dispatch, search, language]);
@@ -42,7 +39,7 @@ function App() {
   const displayTrend = async () => {
     if (index < myTrend.length) {
       await new Promise((resolve) => {
-        setTimeout(resolve, 200);
+        setTimeout(resolve, 100);
       });
       setIndex(index + 1);
     }
@@ -53,20 +50,14 @@ function App() {
   const displayMovies = async () => {
     if (index < movies.length) {
       await new Promise((resolve) => {
-        setTimeout(resolve, 300);
+        setTimeout(resolve, 100);
       });
       setIndex(index + 1);
     }
   };
   displayMovies();
 
-  if (status === "loading") {
-    return (
-      <>
-        <div>loading</div>
-      </>
-    );
-  }
+  if (status === "loading") return <LoadingSpinner />;
   return (
     <>
       <Routes>

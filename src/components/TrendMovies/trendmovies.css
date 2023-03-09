@@ -7,6 +7,14 @@
     margin: 1.5 1rem;
 }
 
+.card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 20ch;
+}
+
+
 .trend-container__content__card {
     width: 16rem;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
@@ -50,7 +58,7 @@
 
 
 .trend-container__content__card .card-body .card-text p,
-.trend-container__content__card .card-body .card-text span  {
+.trend-container__content__card .card-body .card-text span {
     display: flex;
     max-height: 1.7rem;
     align-items: center;
