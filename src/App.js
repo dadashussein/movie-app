@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import SearchMovies from "./components/SearchMovies/SearchMovies";
 import TrendMovies from "./components/TrendMovies/TrendMovies";
-import TrendHeader from "./components/TrendHeader/TrendHeader";
 import Overdetail from "./components/Overdetail/Overdetail";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -19,7 +18,6 @@ function App() {
   const [language, setLanguage] = useState("en-US");
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
-  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     dispatch(fetchTrendMovies({ language }));
@@ -33,76 +31,38 @@ function App() {
     }
   }, [dispatch, search, language]);
 
-  let myTrend = trendMovies.slice(0, 8);
-
-  // animation for the trend movies
-  const displayTrend = async () => {
-    if (index < myTrend.length) {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 100);
-      });
-      setIndex(index + 1);
-    }
-  };
-  displayTrend();
-
-  // animation for the search movies
-  const displayMovies = async () => {
-    if (index < movies.length) {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 100);
-      });
-      setIndex(index + 1);
-    }
-  };
-  displayMovies();
-
   if (status === "loading") return <LoadingSpinner />;
+
   return (
-    <>
+    <div className="container">
+      <form className="lang-switcher">
+        <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+          <option value="en-US">EN</option>
+          <option value="tr-TR">TR</option>
+        </select>
+      </form>
+      <Header setSearch={setSearch} language={language} />
       <Routes>
         <Route
           path="/"
           element={
-            <div className="container">
-              <form className="lang-switcher">
-                <select
-                  value={language}
-                  onChange={(e) => setLanguage(e.target.value)}
-                >
-                  <option value="en-US">EN</option>
-                  <option value="tr-TR">TR</option>
-                </select>
-              </form>
-
-              <Header setSearch={setSearch} language={language} />
-              {search ? null : <TrendHeader language={language} />}
-
-              <div className="app-trendvideos">
-                {myTrend
-                  .slice(0, index)
-                  .map((movie) =>
-                    movie.poster_path &&
-                    movie.length === 0 ? null : search ? null : (
-                      <TrendMovies
-                        movie={movie}
-                        language={language}
-                        key={movie.id}
-                      />
-                    )
-                  )}
-              </div>
-
-              <div className="app-searchmovies">
-                {movies
-                  .slice(0, index)
-                  .map(
-                    (movie) =>
-                      movie.poster_path && (
-                        <SearchMovies movie={movie} key={movie.id} />
-                      )
-                  )}
-              </div>
+            <div className="app-trendvideos">
+              {trendMovies.slice(0, 8).map((movie) => (
+                <TrendMovies movie={movie} language={language} key={movie.id} />
+              ))}
+            </div>
+          }
+        />
+        <Route
+          path="/searchResults"
+          element={
+            <div className="app-searchmovies ">
+              {movies.map(
+                (movie) =>
+                  movie.poster_path && (
+                    <SearchMovies movie={movie} key={movie.id} />
+                  )
+              )}
             </div>
           }
         />
@@ -111,7 +71,7 @@ function App() {
           element={<Overdetail language={language} />}
         />
       </Routes>
-    </>
+    </div>
   );
 }
 

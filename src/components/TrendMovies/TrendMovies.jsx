@@ -9,7 +9,7 @@ const TrendMovies = ({ movie, language }) => {
   const filterTitle = () => title.length > 20 ? `${title.substring(0, 20)}...` : title;
   const filterReleaseDate = () => release_date.split("-")[0];
   return (
-    <article className="trend-container" style={{ animation: "open .5s ease-in-out" }}>
+    <article className="trend-container">
       <div className="trend-container__content">
         <div className="trend-container__content__card">
           <img id="img" src={`${IMG_PATH}${poster_path}`} alt={title} />

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./header.css";
+import { Link } from "react-router-dom";
+
 
 const Header = ({ setSearch, language }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,26 +19,21 @@ const Header = ({ setSearch, language }) => {
     updateSuggestions();
   }, [searchTerm, language]);
 
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearch(searchTerm);
     setSearchTerm("");
   };
 
-  const refreshPage = () => {
-    window.location.reload();
-  };
-
   return (
     <header className="header">
       <div className="header-container">
-        <span className="logo" onClick={refreshPage}>
-          You <span>Movie</span>
-        </span>
+        <Link to="/">
+          <span className="logo">
+            You <span>Movie</span>
+          </span>
+        </Link>
+
         <div className="header-wrapper">
           <div className={`search-input ${searchTerm && "active"}`}>
             <form onSubmit={handleSubmit}>
@@ -44,20 +41,29 @@ const Header = ({ setSearch, language }) => {
                 type="text"
                 placeholder={language === "en-US" ? "Search" : "Ara"}
                 value={searchTerm}
-                onChange={handleChange}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 required
               />
             </form>
+
             <div className="autocom-box">
               {suggestions.map((suggestion) => (
                 <div className="suggestion-list" key={suggestion}>
-                  <li onClick={() => setSearch(suggestion)}>{suggestion}</li>
+                  <Link
+                    to="/searchResults"
+                    className="suggest-line"
+                    onClick={() => setSearch(suggestion)}
+                  >
+                    {suggestion}
+                  </Link>
                 </div>
               ))}
             </div>
-            <button className="icon" onClick={handleSubmit}>
-              <i className="fa fa-search"></i>
-            </button>
+            <Link to="/searchResults">
+              <button className="icon" type="submit" onClick={handleSubmit}>
+                <i className="fa fa-search"></i>
+              </button>
+            </Link>
           </div>
         </div>
       </div>
